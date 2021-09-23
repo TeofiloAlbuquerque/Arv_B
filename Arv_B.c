@@ -28,7 +28,7 @@ int tamSubArvEsqCont(No *raiz) {
         return 0;
     return tamSubArvEsqCont(raiz->sae) + 1 + tamSubArvEsqCont(raiz->sae->sad);
 }
-
+// Desconsiderar a raiz da contagem
 int tamSubArvEsq(No *raiz) {
     int t = tamSubArvEsqCont(raiz);
     return t - 1;
