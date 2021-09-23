@@ -6,13 +6,14 @@ typedef struct no{
     int conteudo; 
     struct no *sae, *sad; // Ponteiros para os campos ESQ e DIR
 }No;
-// INSERÇÃO VERSÃO CURTA, SEM USAR A STRUCT ARVORE
+// INSERÇÃO 
 No* inserir(No* raiz, int valor){
   if(raiz == NULL){
     No *novo = (No*)malloc(sizeof(No)); 
     novo->conteudo = valor; 
     novo->sae = NULL; 
     novo->sad = NULL; 
+    return novo;
   }
   else{
     if(valor < raiz->conteudo)
@@ -24,9 +25,15 @@ No* inserir(No* raiz, int valor){
 }
 // Conta o tamanho da subárvore esquerda.
 int tamSubArvEsqCont(No *raiz) {
-    if (raiz == NULL || (raiz->sae == NULL && raiz->sad == NULL))
-        return 0;
-    return tamSubArvEsqCont(raiz->sae) + 1 + tamSubArvEsqCont(raiz->sae->sad);
+  if (raiz == NULL)
+    return 0;
+  if (raiz->sae == NULL && raiz->sad == NULL)
+    return 0;
+  return tamSubArvEsqCont(raiz->sae) + 1 + tamSubArvEsqCont(raiz->sae->sad);
+  /*if (raiz == NULL || (raiz->sae == NULL && raiz->sad == NULL))
+    return 1;
+  return tamSubArvEsqCont(raiz->sae) + 1 + (raiz->sae != NULL) ?  
+         tamSubArvEsqCont(raiz->sae->sad) : 0;*/
 }
 // Desconsiderar a raiz da contagem
 int tamSubArvEsq(No *raiz) {
@@ -45,10 +52,10 @@ void show(No *raiz){
 int main(){
     int opcao, valor; 
 
-    No *raiz = NULL; // Iniciando a Arv sem precisa da Struct Raiz
+    No *raiz = NULL; // Iniciando a Arv
     do{
-      printf("MENU ARVORE\n0 - sair\n1 - Inserir\n2 - Imprimir\n3 - Tamanho"
-             "\nOpcao: "); // menu
+      printf("MENU ARVORE BINARIA\n0 - sair\n1 - Inserir\n2 - Imprimir\n3 - Tamanho"
+             "\nOpcao: "); 
       scanf("%d", &opcao); 
       switch (opcao)
       {
@@ -63,16 +70,16 @@ int main(){
         break;
       case 2: // IMPRESSÃO
         printf("\nImpressao da Arvore Binaria:\n");
-        show(raiz); // função impressão
+        show(raiz); 
         printf("\n");
         break;
         case 3: // TAMANHO
-        printf("Tamanho: %d\n", tamSubArvEsq(raiz));
+        printf("Quantidade: %d\n", tamSubArvEsq(raiz));
         printf("\n");
         break;
       default:
         printf("\nOpcao Invalida!\n");
         break;
       }
-    }while(opcao != 0); // opção para saida
+    }while(opcao != 0);
 }
