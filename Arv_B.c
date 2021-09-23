@@ -30,7 +30,7 @@ int tamSubArvEsqCont(No *raiz) {
 }
 // Desconsiderar a Raiz na contagem
 int tamSubArvEsq(No *raiz) {
-    int t = tamanhoSubArvoreEsquerdaCont(raiz);
+    int t = tamSubArvEsqCont(raiz);
     return t - 1;
 }
 // MOSTRAR A ARVORE BINARIA
