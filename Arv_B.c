@@ -1,56 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 typedef struct no{
     int conteudo; 
-    struct no *esq, *dir;
+    struct no *sae, *sad; // Ponteiros para os campos ESQ e DIR
 }No;
-// INSERÇÃO
+// INSERÇÃO VERSÃO CURTA, SEM USAR A STRUCT ARVORE
 No* inserir(No* raiz, int valor){
   if(raiz == NULL){
     No *novo = (No*)malloc(sizeof(No)); 
     novo->conteudo = valor; 
-    novo->esq = NULL; 
-    novo->dir = NULL; 
+    novo->sae = NULL; 
+    novo->sad = NULL; 
   }
   else{
     if(valor < raiz->conteudo)
-      raiz->esq = inserir(raiz->dir, valor);
+      raiz->sae = inserir(raiz->sae, valor);
     if(valor > raiz->conteudo)
-      raiz->esq = inserir(raiz->dir, valor);
+      raiz->sad = inserir(raiz->sad, valor);
     return raiz;
   }
 }
-// Contar o tamanho da subárvore esquerda.
+// Conta o tamanho da subárvore esquerda.
 int tamSubArvEsqCont(No *raiz) {
-    if (raiz == NULL || (raiz->esq == NULL && raiz->dir == NULL))
+    if (raiz == NULL || (raiz->sae == NULL && raiz->sad == NULL))
         return 0;
-    else
-        return tamSubArvEsqCont(raiz->esq) + 1 + tamSubArvEsqCont(raiz->esq->dir);
+    return tamSubArvEsqCont(raiz->sae) + 1 + tamSubArvEsqCont(raiz->sae->sad);
 }
-// Desconsiderar a Raiz na contagem
+
 int tamSubArvEsq(No *raiz) {
     int t = tamSubArvEsqCont(raiz);
     return t - 1;
 }
 // MOSTRAR A ARVORE BINARIA
-void imprimir(No *raiz){ 
+void show(No *raiz){ 
   if(raiz != NULL){ 
-    imprimir(raiz->esq); 
     printf("%d ", raiz->conteudo); 
-    imprimir(raiz->dir); 
+    show(raiz->sae); 
+    show(raiz->sad); 
   }
 }
 
 int main(){
     int opcao, valor; 
+
     No *raiz = NULL; // Iniciando a Arv sem precisa da Struct Raiz
-    
     do{
       printf("MENU ARVORE\n0 - sair\n1 - Inserir\n2 - Imprimir\n3 - Tamanho"
              "\nOpcao: "); // menu
       scanf("%d", &opcao); 
-
       switch (opcao)
       {
       case 0: // SAIR
@@ -64,10 +63,10 @@ int main(){
         break;
       case 2: // IMPRESSÃO
         printf("\nImpressao da Arvore Binaria:\n");
-        imprimir(raiz); // função impressão
+        show(raiz); // função impressão
         printf("\n");
         break;
-      case 3: // TAMANHO
+        case 3: // TAMANHO
         printf("Tamanho: %d\n", tamSubArvEsq(raiz));
         printf("\n");
         break;
