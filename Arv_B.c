@@ -3,7 +3,7 @@
 
 typedef struct no{
     int conteudo; 
-    struct no *esq, *dir; // Ponteiros para os campos ESQ e DIR
+    struct no *esq, *dir;
 }No;
 // INSERÇÃO
 No* inserir(No* raiz, int valor){
